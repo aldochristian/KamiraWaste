@@ -1,0 +1,2 @@
+rootProject.name='KamiraWaste'
+include ':app'
