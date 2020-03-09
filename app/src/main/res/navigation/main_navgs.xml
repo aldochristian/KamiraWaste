@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navgs"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="info.twentysixproject.kamirawaste.dashboard.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_dashboardtopickup"
+            app:destination="@id/pickupserviceFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_deliverserviceFragment"
+            app:destination="@id/deliverserviceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pickupserviceFragment"
+        android:name="info.twentysixproject.kamirawaste.pickupservice.PickupserviceFragment"
+        android:label="fragment_pickupservice"
+        tools:layout="@layout/fragment_pickupservice" >
+        <argument
+            android:name="locAddress"
+            android:defaultValue="Unknown Address"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_pickupserviceFragment_to_locationpickDialogFragment"
+            app:destination="@id/locationpickDialogFragment" />
+        <action
+            android:id="@+id/action_pickupserviceFragment_to_submitrequestDialogFragment"
+            app:destination="@id/submitrequestDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deliverserviceFragment"
+        android:name="info.twentysixproject.kamirawaste.DeliverserviceFragment"
+        android:label="fragment_deliverservice"
+        tools:layout="@layout/fragment_deliverservice" />
+    <fragment
+        android:id="@+id/rewardsFragment"
+        android:name="info.twentysixproject.kamirawaste.RewardsFragment"
+        android:label="fragment_rewards"
+        tools:layout="@layout/fragment_rewards" />
+    <fragment
+        android:id="@+id/orderlistFragment"
+        android:name="info.twentysixproject.kamirawaste.orderlist.OrderlistFragment"
+        android:label="fragment_orderlist"
+        tools:layout="@layout/fragment_orderlist" >
+        <action
+            android:id="@+id/action_orderlistFragment_to_orderdetailFragment"
+            app:destination="@id/orderdetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderdetailFragment"
+        android:name="info.twentysixproject.kamirawaste.orderlist.orderdetail.OrderdetailFragment"
+        android:label="fragment_orderdetail"
+        tools:layout="@layout/fragment_orderdetail">
+        <argument
+            android:name="idOrder"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="info.twentysixproject.kamirawaste.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_editprofileFragment"
+            app:destination="@id/editprofileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_termsFragment"
+            app:destination="@id/termsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editprofileFragment"
+        android:name="info.twentysixproject.kamirawaste.EditprofileFragment"
+        android:label="fragment_editprofile"
+        tools:layout="@layout/fragment_editprofile" />
+    <fragment
+        android:id="@+id/termsFragment"
+        android:name="info.twentysixproject.kamirawaste.profile.TermsFragment"
+        android:label="fragment_terms"
+        tools:layout="@layout/fragment_terms" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="info.twentysixproject.kamirawaste.profile.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/locationpickDialogFragment"
+        android:name="info.twentysixproject.kamirawaste.pickupservice.LocationpickDialogFragment"
+        android:label="LocationpickDialogFragment">
+        <action
+            android:id="@+id/action_locationpickDialogFragment_to_pickupserviceFragment"
+            app:popUpTo="@+id/pickupserviceFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/pickupserviceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/submitrequestDialogFragment"
+        android:name="info.twentysixproject.kamirawaste.pickupservice.SubmitrequestDialogFragment"
+        android:label="fragment_submitrequest_dialog"
+        tools:layout="@layout/fragment_submitrequest_dialog" >
+        <action
+            android:id="@+id/action_submitrequestDialogFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
+</navigation>

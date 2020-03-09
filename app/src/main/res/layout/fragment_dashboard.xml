@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="profile"
+            type="info.twentysixproject.kamirawaste.profile.Profile" />
+
+        <variable
+            name="point"
+            type="info.twentysixproject.kamirawaste.dashboard.Point" />
+
+        <variable
+            name="dashboardViewModel"
+            type="info.twentysixproject.kamirawaste.dashboard.DashboardViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey_10"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/world_map"
+                android:tint="@color/overlay_light_30" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:contentInsetStartWithNavigation="0dp"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:subtitleTextAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+                app:subtitleTextColor="@color/grey_10"
+                app:title="NN" />
+
+        </RelativeLayout>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:layout_marginLeft="@dimen/spacing_middle"
+            android:layout_marginRight="@dimen/spacing_middle"
+            android:layout_marginTop="-30dp"
+            android:clipToPadding="false"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_large">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Balance"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/grey_60" />
+
+                    <View
+                        android:layout_width="@dimen/spacing_large"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/dash_txtbalance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{dashboardViewModel.myPoints}"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/green_400"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_rounded_orange"
+                    android:paddingBottom="@dimen/spacing_small"
+                    android:paddingLeft="@dimen/spacing_xmedium"
+                    android:paddingRight="@dimen/spacing_xmedium"
+                    android:paddingTop="@dimen/spacing_small">
+
+                    <TextView
+                        android:text="@{dashboardViewModel.myPoints}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                        android:textColor="@android:color/white" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="-36dp"
+            android:scrollbars="none"
+            android:scrollingCache="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="35dp" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_medium"
+                    android:layout_marginLeft="@dimen/spacing_middle"
+                    android:layout_marginRight="@dimen/spacing_middle"
+                    android:layout_marginTop="@dimen/spacing_middle"
+                    android:visibility="visible"
+                    app:cardCornerRadius="4dp"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/spacing_middle">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/spacing_mxlarge" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                    android:id="@+id/frdashboard_btnpick"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:tint="@android:color/white"
+                                    app:backgroundTint="@color/light_green_500"
+                                    app:elevation="0dp"
+                                    app:fabSize="mini"
+                                    app:rippleColor="@android:color/black"
+                                    app:srcCompat="@drawable/ic_person" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/spacing_medium"
+                                    android:text="FRIENDS"
+                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+                                    android:textColor="@color/grey_40" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:tint="@android:color/white"
+                                    app:backgroundTint="@color/yellow_600"
+                                    app:elevation="0dp"
+                                    app:fabSize="mini"
+                                    app:rippleColor="@android:color/white"
+                                    app:srcCompat="@drawable/ic_peoples" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/spacing_medium"
+                                    android:text="GROUPS"
+                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+                                    android:textColor="@color/grey_40" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:visibility="invisible"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:tint="@android:color/white"
+                                    app:backgroundTint="@color/purple_400"
+                                    app:elevation="0dp"
+                                    app:fabSize="mini"
+                                    app:rippleColor="@android:color/white"
+                                    app:srcCompat="@drawable/ic_location" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/spacing_medium"
+                                    android:text="NEARABY"
+                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+                                    android:textColor="@color/grey_40" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:visibility="invisible"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:tint="@android:color/white"
+                                    app:backgroundTint="@color/blue_400"
+                                    app:elevation="0dp"
+                                    app:fabSize="mini"
+                                    app:rippleColor="@android:color/white"
+                                    app:srcCompat="@drawable/ic_near_me" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/spacing_medium"
+                                    android:text="MOMENT"
+                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+                                    android:textColor="@color/grey_40" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/spacing_mlarge" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Start your card here if any-->
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+
+
+</layout>
