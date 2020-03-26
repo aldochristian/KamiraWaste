@@ -18,9 +18,9 @@ class PickupserviceViewModel : ViewModel() {
     //Authentication Instance
     val user: FirebaseUser? = auth.currentUser
 
-    private val _hasComplete = MutableLiveData<Boolean>()
-    val hasComplete: LiveData<Boolean>
-        get() = _hasComplete
+    private val _createOrder = MutableLiveData<Boolean>()
+    val createOrder: LiveData<Boolean>
+        get() = _createOrder
 
     private val _hasLoaded = MutableLiveData<Boolean>()
     val hasLoaded: LiveData<Boolean>
@@ -48,6 +48,10 @@ class PickupserviceViewModel : ViewModel() {
     }
     //Choice of extra
 
+    init {
+        _createOrder.value = false
+    }
+
     fun selectedExtra(){}
 
     fun storeFirestore(){
@@ -73,15 +77,20 @@ class PickupserviceViewModel : ViewModel() {
             batch.set(orderRef, orderData)
             batch.set(userRef, orderDataForUser)
         }.addOnCompleteListener {
-            _hasComplete.value = true
+            //_hasComplete.value = true
         }.addOnFailureListener{
-            _hasComplete.value = false
+            //_hasComplete.value = false
         }
 
     }
 
     fun onClickSave(){
-        storeFirestore()
+        _createOrder.value = true
+        //storeFirestore()
+    }
+
+    fun  invalid(){
+        _createOrder.value = false
     }
 
 }

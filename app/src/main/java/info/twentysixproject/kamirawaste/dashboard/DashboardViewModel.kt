@@ -15,36 +15,32 @@ class DashboardViewModel : ViewModel(){
     //Authentication Instance
     val user: FirebaseUser? = auth.currentUser
 
-    val balance = MutableLiveData<List<Point>>()
-    val profile = MutableLiveData<List<Profile>>()
+    val balanceCash = MutableLiveData<Long>(0)
+    val balancePoint = MutableLiveData<Long>(0)
+    val fullName = MutableLiveData<String>()
 
     private val _mypoints = MutableLiveData<String>()
     val myPoints: LiveData<String>
         get() = _mypoints
 
-    fun fetchPoints(){
-        val pointFetch : MutableList<Point> = mutableListOf()
+    fun fetchPointsProfile(){
 
-        pointFetch.add(Point(
-            "0001","200", "2000")
-        )
+        db.collection("users")
+            .document(user!!.uid)
+            .get()
+            .addOnSuccessListener {
+                if(it != null){
+                    balanceCash.value = it.get("balanceCash") as Long
+                    balancePoint.value = it.get("balancePoint") as Long
+                    fullName.value = it.get("fullname").toString()
+                }
+            }.addOnFailureListener{}
 
-        _mypoints.value = "200"
-        balance.value = pointFetch
+        //balance.value = pointFetch
     }
 
     fun getPoints(): LiveData<String> {
         return myPoints
-    }
-
-    fun fetchProfile(){
-        val profileFetch: MutableList<Profile> = mutableListOf()
-
-        profileFetch.add(Profile(
-            "", "Aldo", "NN", "Manado", "628114110823"
-        ))
-
-        profile.value = profileFetch
     }
 
 }

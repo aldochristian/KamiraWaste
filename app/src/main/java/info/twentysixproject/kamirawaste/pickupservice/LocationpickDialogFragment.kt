@@ -36,9 +36,9 @@ class LocationpickDialogFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnM
     private lateinit var locationCallback: LocationCallback
     private lateinit var myGeoCoor: LatLng
 
-    internal var locationPickLat: Double? = 0.0
-    internal var locationPickLog: Double? = 0.0
-    internal var addressPick: String? = null
+    var locationPickLat: Double? = 0.0
+    var locationPickLog: Double? = 0.0
+    var addressPick: String? = null
 
     override fun onMapReady(p0: GoogleMap?) {
         if (p0 != null) {
@@ -63,6 +63,9 @@ class LocationpickDialogFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnM
             markerOption.position(it)
             myGeoCoor = LatLng(it.latitude, it.longitude)
             val titleStr = getAddress(myGeoCoor)  // add these two lines
+            locationPickLat = it.latitude
+            locationPickLog = it.longitude
+            addressPick = titleStr
             Log.i("Map", "Coordinate "+myGeoCoor)
             Log.i("Map", "Address "+titleStr)
 
@@ -76,6 +79,10 @@ class LocationpickDialogFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnM
             if (location != null) {
                 lastLocation = location
                 val currentLatLng = LatLng(location.latitude, location.longitude)
+                val titleStr = getAddress(currentLatLng)  // add these two lines
+                locationPickLat = location.latitude
+                locationPickLog = location.longitude
+                addressPick = titleStr
                 placeMarkerOnMap(currentLatLng)
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
             }
@@ -147,6 +154,7 @@ class LocationpickDialogFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnM
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<Button>(R.id.btn_confirm)?.setOnClickListener {
+            Log.i("LocationDialog", "Address "+addressPick)
             var bundle =  bundleOf(
                 "locAddress" to addressPick,
                 "coordLat" to locationPickLat,

@@ -125,6 +125,7 @@
                             android:layout_height="@dimen/spacing_large" />
 
                         <EditText
+                            android:id="@+id/frpick_txtsender"
                             android:text="@={model.senderName}"
                             style="@style/EditText.Flat.Grey"
                             android:layout_width="match_parent"
@@ -140,10 +141,12 @@
                             android:layout_height="@dimen/spacing_large" />
 
                         <EditText
+                            android:id="@+id/frpick_txtphone"
                             android:text="@={model.senderContact}"
                             style="@style/EditText.Flat.Grey"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
+                            android:inputType="phone"
                             android:background="@drawable/edit_text_round_bg_gray"
                             android:hint="Nomor telepon pengirim"
                             android:minHeight="45dp"
@@ -155,6 +158,7 @@
                             android:layout_height="@dimen/spacing_large" />
 
                         <EditText
+                            android:id="@+id/frpick_txtnotes"
                             android:text="@={model.senderNote}"
                             style="@style/EditText.Flat.Grey"
                             android:layout_width="match_parent"

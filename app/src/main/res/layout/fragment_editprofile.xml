@@ -1,113 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <data>
+        <variable
+            name="profileViewModel"
+            type="info.twentysixproject.kamirawaste.profile.ProfileViewModel" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/pink_300"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:contentInsetStartWithNavigation="0dp"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        <variable
+            name="profile"
+            type="info.twentysixproject.kamirawaste.profile.Profile" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+    </data>
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
-        android:clipToPadding="false"
-        android:padding="@dimen/spacing_large"
-        android:scrollbars="none"
-        android:scrollingCache="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <com.google.android.material.textfield.TextInputLayout
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/pink_300"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:contentInsetStartWithNavigation="0dp"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:clipToPadding="false"
+            android:padding="@dimen/spacing_large"
+            android:scrollbars="none"
+            android:scrollingCache="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="@color/grey_40">
+                android:orientation="vertical">
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <TextView
+                    android:text="@{profileViewModel.id}"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Name" />
+                    android:textColorHint="@color/grey_40">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/editprofile_name"
+                        android:text="@{profileViewModel.name}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Name" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spacing_middle" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="@color/grey_40">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_middle" />
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Address" />
+                    android:textColorHint="@color/grey_40">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/editprofile_address"
+                        android:text="@{profileViewModel.address}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Address" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spacing_middle" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="@color/grey_40">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_middle" />
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="City" />
+                    android:textColorHint="@color/grey_40">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/editprofile_city"
+                        android:text="@{profileViewModel.city}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="City" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spacing_middle" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="@color/grey_40">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_middle" />
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Phone number"
-                    android:inputType="phone" />
+                    android:textColorHint="@color/grey_40">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/editprofile_phone"
+                        android:text="@{profileViewModel.phone}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Phone number"
+                        android:inputType="phone" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spacing_mxlarge" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="* Required field"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_mxlarge" />
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="* Required field"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-    </androidx.core.widget.NestedScrollView>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spacing_mxlarge" />
 
-</LinearLayout>
+                <Button
+                    android:text="Simpan"
+                    android:onClick="@{() -> profileViewModel.saveOnClick()}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+
+    </LinearLayout>
+</layout>

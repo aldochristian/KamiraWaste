@@ -4,14 +4,6 @@
 
     <data>
         <variable
-            name="profile"
-            type="info.twentysixproject.kamirawaste.profile.Profile" />
-
-        <variable
-            name="point"
-            type="info.twentysixproject.kamirawaste.dashboard.Point" />
-
-        <variable
             name="dashboardViewModel"
             type="info.twentysixproject.kamirawaste.dashboard.DashboardViewModel" />
     </data>
@@ -44,7 +36,7 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:subtitleTextAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                 app:subtitleTextColor="@color/grey_10"
-                app:title="NN" />
+                app:title="@{dashboardViewModel.fullName}" />
 
         </RelativeLayout>
 
@@ -89,7 +81,7 @@
                         android:id="@+id/dash_txtbalance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{dashboardViewModel.myPoints}"
+                        android:text="@{Long.toString(dashboardViewModel.balanceCash)}"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                         android:textColor="@color/green_400"
                         android:textStyle="bold" />
@@ -106,7 +98,7 @@
                     android:paddingTop="@dimen/spacing_small">
 
                     <TextView
-                        android:text="@{dashboardViewModel.myPoints}"
+                        android:text="@{Long.toString(dashboardViewModel.balancePoint)}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"

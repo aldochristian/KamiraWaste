@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import info.twentysixproject.kamirawaste.R
 import info.twentysixproject.kamirawaste.databinding.FragmentDashboardBinding
@@ -50,8 +51,7 @@ class DashboardFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
         binding.dashboardViewModel = viewModel
 
-        viewModel.fetchPoints()
-        viewModel.fetchProfile()
+        viewModel.fetchPointsProfile()
 
         binding.lifecycleOwner = this
         return binding.root
@@ -59,6 +59,10 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //Navigation bottom
+        val navBar = activity?.findViewById<BottomNavigationView>(R.id.nav_view_bottom)
+        navBar?.visibility = View.VISIBLE //Navigation hidden
 
         view.findViewById<FloatingActionButton>(R.id.frdashboard_btnpick)?.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_dashboardtopickup, null)

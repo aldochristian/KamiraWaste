@@ -1,22 +1,20 @@
 package info.twentysixproject.kamirawaste.pickupservice
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.bottomnavigation.BottomNavigationMenu
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.GeoPoint
 import info.twentysixproject.kamirawaste.R
 import info.twentysixproject.kamirawaste.databinding.FragmentPickupserviceBinding
@@ -50,7 +48,7 @@ class PickupserviceFragment : Fragment() {
     private var myAddressPicked: String? = null
     private var latitude = 0.0
     private var longtitude = 0.0
-    private var myLocationPicked = LatLng(0.0,0.0)
+    private var myLocationPicked = GeoPoint(0.0,0.0)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,18 +60,71 @@ class PickupserviceFragment : Fragment() {
 
         binding.frpickTxtaddress.setText(myAddressPicked)
 
-        viewModel = ViewModelProviders.of(this).get(PickupserviceViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(PickupserviceViewModel::class.java)
         binding.model = viewModel
+
+
+        //invalid please check again
+        //trigger to store order
+        viewModel.createOrder.observe(viewLifecycleOwner, Observer {
+            if(it){
+                //Triggered -> run validation -> pass then set null
+                val isValid = validateOrder(binding)
+                if(isValid){
+                    //trigger to save change
+                    viewModel.storeFirestore()
+                }else{
+                    // trigger dialog data invalid
+                    dialogInvalidOrder()
+                }
+                viewModel.invalid() //Set to null condition
+            }
+        })
 
         binding.lifecycleOwner = this
         return binding.root
     }
 
-    /**
-     * Interface module listener
-     */
+    fun validateOrder(binding: FragmentPickupserviceBinding):Boolean {
+        if(binding.frpickTxtsender.text.isNullOrBlank()){
+            return false
+        }else if(binding.frpickTxtphone.text.isNullOrBlank()){
+            return false
+        }else if(binding.frpickTxtaddress.text.isNullOrBlank()){
+            return false
+        }else if(binding.frpickTxtaddress.text.isNullOrBlank()){
+            return false
+        }
+        return true
+    }
+
+    fun dialogInvalidOrder(){
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_warning)
+
+        val lp : WindowManager.LayoutParams = WindowManager.LayoutParams()
+        lp.copyFrom(dialog.window?.attributes)
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
+
+        dialog.findViewById<TextView>(R.id.title).text = "Yaay ..."
+        dialog.findViewById<TextView>(R.id.content).text = "Order anda gagal dibuat, periksa kembali informasi yang anda berikan"
+
+        dialog.show()
+        dialog.window?.attributes = lp
+
+        dialog.findViewById<Button>(R.id.bt_close).setOnClickListener {
+            dialog.dismiss()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //Navigation bottom
+        val navBar = activity?.findViewById<BottomNavigationView>(R.id.nav_view_bottom)
+        navBar?.visibility = View.INVISIBLE //Navigation hidden
 
         //Button frpick_btnschedule listener
         view.findViewById<Button>(R.id.frpick_btnschedule)?.setOnClickListener{
@@ -85,17 +136,19 @@ class PickupserviceFragment : Fragment() {
         )
 
         //Monitoring when client submit order
-        viewModel.hasComplete.observe(viewLifecycleOwner, Observer {
+        /*viewModel.hasComplete.observe(viewLifecycleOwner, Observer {
             it.let {
                 if(it){ Navigation.findNavController(view).navigate(R.id.action_pickupserviceFragment_to_submitrequestDialogFragment) } // Call Dialog when success
             }
-        })
+        })*/
 
         //Receive value after pick location
         myAddressPicked = arguments!!.getString("locAddress")
+        viewModel.address.value = myAddressPicked
         latitude = arguments!!.getDouble("coordLat", 0.00)
         longtitude = arguments!!.getDouble("coordLog", 0.00)
-        myLocationPicked = LatLng(latitude!!, longtitude!!)
+        myLocationPicked = GeoPoint(latitude!!, longtitude!!)
+        viewModel.location.value = myLocationPicked
 
     }
 
@@ -119,26 +172,6 @@ class PickupserviceFragment : Fragment() {
             })
         builder.setNegativeButton(android.R.string.cancel, null)
         builder.show()
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PickupserviceFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PickupserviceFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 
 }
