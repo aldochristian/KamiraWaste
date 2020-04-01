@@ -1,5 +1,9 @@
 package info.twentysixproject.kamirawaste.dashboard
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -54,6 +58,13 @@ class DashboardFragment : Fragment() {
         viewModel.fetchPointsProfile()
 
         binding.lifecycleOwner = this
+
+        // : Step 1.7 call create channel
+        createChannel(
+            getString(R.string.egg_notification_channel_id),
+            getString(R.string.egg_notification_channel_name)
+        )
+
         return binding.root
     }
 
@@ -67,6 +78,38 @@ class DashboardFragment : Fragment() {
         view.findViewById<FloatingActionButton>(R.id.frdashboard_btnpick)?.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_dashboardtopickup, null)
         )
+
+        view.findViewById<FloatingActionButton>(R.id.frdashboard_btndepo)?.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_dashboardFragment_to_depotlistFragment, null)
+        )
+
+    }
+
+    private fun createChannel(channelId: String, channelName: String) {
+        // : Step 1.6 START create a channel
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel = NotificationChannel(
+                channelId,
+                channelName,
+                // : Step 2.4 change importance
+                NotificationManager.IMPORTANCE_HIGH
+            )// : Step 2.6 disable badges for this channel
+                .apply {
+                    setShowBadge(false)
+                }
+
+            notificationChannel.enableLights(true)
+            notificationChannel.lightColor = Color.RED
+            notificationChannel.enableVibration(true)
+            notificationChannel.description = getString(R.string.breakfast_notification_channel_description)
+
+            val notificationManager = requireActivity().getSystemService(
+                NotificationManager::class.java
+            )
+            notificationManager.createNotificationChannel(notificationChannel)
+
+        }
+        // : Step 1.6 END create a channel
     }
 
     companion object {

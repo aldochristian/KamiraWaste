@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import info.twentysixproject.kamirawaste.databinding.ItemDepotlistBinding
 
-class DepotAdapter(var clickListener: OrderListener) : ListAdapter<Depots, DepotAdapter.ViewHolder>(DepotDiffCallback()) {
+class DepotAdapter(var clickListener: DepotListener) : ListAdapter<Depots, DepotAdapter.ViewHolder>(DepotDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position)!!, clickListener)
@@ -19,7 +19,7 @@ class DepotAdapter(var clickListener: OrderListener) : ListAdapter<Depots, Depot
 
     class ViewHolder private constructor(val binding: ItemDepotlistBinding) : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(item: Depots, clickListener: OrderListener) {
+        fun bind(item: Depots, clickListener: DepotListener) {
             //binding.order = item
             //binding.clickListener = clickListener
             binding.executePendingBindings()
@@ -35,8 +35,8 @@ class DepotAdapter(var clickListener: OrderListener) : ListAdapter<Depots, Depot
     }
 }
 
-class OrderListener(val clickListener: (data: Depots) -> Unit) {
-    fun onClick(order: Depots) = clickListener(order)
+class DepotListener(val clickListener: (data: Depots) -> Unit) {
+    fun onClick(depot: Depots) = clickListener(depot)
 }
 
 class DepotDiffCallback : DiffUtil.ItemCallback<Depots>() {

@@ -296,4 +296,35 @@
     <string name="medium_lorem_ipsum">Quisque imperdiet nunc at massa dictum volutpat. Etiam id orci ipsum. Integer id ex dignissim</string>
     <string name="title_activity_pickuplocation">Map</string>
 
+    <string name="GOT_IT">GOT IT</string>
+    <string name="NEXT">NEXT</string>
+
+
+    <string name="egg_prompt">How do you like your egg?</string>
+    <string name="timer_on">Start</string>
+    <string name="timer_off">Stop</string>
+    <string name="notification_title">Egg Timer</string>
+    <string name="notification_text">Your egg is ready!!</string>
+
+    <string name="message_subscribe_failed">Failed to subscribe to topic</string>
+    <string name="message_subscribed">Subscribed to topic</string>
+    <string name="egg_notification_channel_id" translatable="false">egg_channel</string>
+    <string name="egg_notification_channel_name" translatable="true">Egg</string>
+    <string name="breakfast_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="breakfast_notification_channel_name" translatable="true">Breakfast</string>
+    <string name="eggs_ready">It is time! Bon appetit!</string>
+    <string name="timer_running">Egg timer is running...</string>
+    <string name="breakfast_notification_channel_description">Breakfast reminder</string>
+    <string name="snooze">Snooze</string>
+    <string name="title_activity_depo">DepoActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+
 </resources>

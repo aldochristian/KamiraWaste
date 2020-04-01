@@ -113,7 +113,7 @@
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nested_scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="732dp"
             android:layout_marginTop="-36dp"
             android:scrollbars="none"
             android:scrollingCache="true">
@@ -131,10 +131,10 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/spacing_medium"
                     android:layout_marginLeft="@dimen/spacing_middle"
-                    android:layout_marginRight="@dimen/spacing_middle"
                     android:layout_marginTop="@dimen/spacing_middle"
+                    android:layout_marginRight="@dimen/spacing_middle"
+                    android:layout_marginBottom="@dimen/spacing_medium"
                     android:visibility="visible"
                     app:cardCornerRadius="4dp"
                     app:cardElevation="2dp">
@@ -192,6 +192,7 @@
                                 android:orientation="vertical">
 
                                 <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                    android:id="@+id/frdashboard_btndepo"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:clickable="true"
@@ -212,7 +213,6 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:visibility="invisible"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -240,12 +240,12 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:visibility="invisible"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:orientation="vertical">
+                                android:orientation="vertical"
+                                android:visibility="invisible">
 
                                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                                     android:layout_width="wrap_content"
