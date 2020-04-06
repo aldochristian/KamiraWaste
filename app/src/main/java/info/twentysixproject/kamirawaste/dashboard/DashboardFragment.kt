@@ -5,6 +5,7 @@ import android.app.NotificationManager
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +14,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.functions.FirebaseFunctions
 import info.twentysixproject.kamirawaste.R
 import info.twentysixproject.kamirawaste.databinding.FragmentDashboardBinding
 
@@ -34,6 +37,7 @@ class DashboardFragment : Fragment() {
     private var param2: String? = null
 
     private lateinit var viewModel : DashboardViewModel
+    lateinit var functions: FirebaseFunctions
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +45,8 @@ class DashboardFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        functions = FirebaseFunctions.getInstance()
     }
 
     override fun onCreateView(
@@ -58,6 +64,14 @@ class DashboardFragment : Fragment() {
         viewModel.fetchPointsProfile()
 
         binding.lifecycleOwner = this
+
+        viewModel.firstLogin.observe(viewLifecycleOwner, Observer {
+            Log.d("test", it.toString())
+            if (it){
+                firstTimeSetup("Test")
+                //viewModel.createdUser()
+            }
+        })
 
         // : Step 1.7 call create channel
         createChannel(
@@ -110,6 +124,26 @@ class DashboardFragment : Fragment() {
 
         }
         // : Step 1.6 END create a channel
+    }
+
+    //======First sign configuration=====//
+    private fun firstTimeSetup(text: String): Task<String> {
+        // Create the arguments to the callable function.
+        val data = hashMapOf(
+            "text" to text,
+            "push" to true
+        )
+
+        return functions
+            .getHttpsCallable("createUser")
+            .call(data)
+            .continueWith { task ->
+                // This continuation runs on either success or failure, but if the task
+                // has failed then result will throw an Exception which will be
+                // propagated down.
+                val result = task.result?.data as String
+                result
+            }
     }
 
     companion object {

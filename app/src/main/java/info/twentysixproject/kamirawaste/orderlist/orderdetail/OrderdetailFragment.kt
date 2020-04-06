@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import info.twentysixproject.kamirawaste.R
+import info.twentysixproject.kamirawaste.databinding.FragmentDetailOrderBinding
 import info.twentysixproject.kamirawaste.databinding.FragmentOrderdetailBinding
 import info.twentysixproject.kamirawaste.orderlist.OrderlistViewModel
 
@@ -39,17 +40,17 @@ class OrderdetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentOrderdetailBinding = DataBindingUtil.inflate(
+        val binding: FragmentDetailOrderBinding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_orderdetail, container, false)
+            R.layout.fragment_detail_order, container, false)
 
         viewModel = ViewModelProvider(this).get(OrderdetailViewModel::class.java)
         binding.orderdetailViewModel = viewModel
 
         viewModel.fetchFirestore(arguments!!.getString("idOrder"))
-        viewModel.getOrderDetail().observe(viewLifecycleOwner, Observer {
+        /*viewModel.getOrderDetail().observe(viewLifecycleOwner, Observer {
             Log.i("Orderdetail", "Here "+it)
-        })
+        })*/
 
         binding.lifecycleOwner = this
         return binding.root

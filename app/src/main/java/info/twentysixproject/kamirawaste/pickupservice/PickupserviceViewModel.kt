@@ -22,6 +22,10 @@ class PickupserviceViewModel : ViewModel() {
     val createOrder: LiveData<Boolean>
         get() = _createOrder
 
+    private val _created = MutableLiveData<Boolean>()
+    val created: LiveData<Boolean>
+        get() = _created
+
     private val _hasLoaded = MutableLiveData<Boolean>()
     val hasLoaded: LiveData<Boolean>
         get() = _hasLoaded
@@ -36,7 +40,6 @@ class PickupserviceViewModel : ViewModel() {
 
     val address = MutableLiveData<String>()
     val location = MutableLiveData<GeoPoint>()
-
     val senderName = MutableLiveData<String>()
     val senderContact = MutableLiveData<String>()
     val senderNote = MutableLiveData<String>()
@@ -61,12 +64,13 @@ class PickupserviceViewModel : ViewModel() {
         val userRef = db.collection("users").document(user!!.uid).collection("orders").document(orderId.id)
 
         val orderData = hashMapOf(
+            "userId" to user.uid,
             "location" to location.value,
-            "address" to location.value,
+            "address" to address.value,
             "senderName" to senderName.value,
             "senderContact" to senderContact.value,
             "senderNote" to senderNote.value,
-            "status" to "assigned",
+            "status" to "pending",
             "dateCreated" to FieldValue.serverTimestamp())
 
         val orderDataForUser = hashMapOf(
@@ -77,9 +81,9 @@ class PickupserviceViewModel : ViewModel() {
             batch.set(orderRef, orderData)
             batch.set(userRef, orderDataForUser)
         }.addOnCompleteListener {
-            //_hasComplete.value = true
+            _created.value = true
         }.addOnFailureListener{
-            //_hasComplete.value = false
+            _created.value = false
         }
 
     }

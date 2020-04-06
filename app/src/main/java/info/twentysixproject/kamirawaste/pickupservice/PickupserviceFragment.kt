@@ -63,7 +63,6 @@ class PickupserviceFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(PickupserviceViewModel::class.java)
         binding.model = viewModel
 
-
         //invalid please check again
         //trigger to store order
         viewModel.createOrder.observe(viewLifecycleOwner, Observer {
@@ -136,11 +135,11 @@ class PickupserviceFragment : Fragment() {
         )
 
         //Monitoring when client submit order
-        /*viewModel.hasComplete.observe(viewLifecycleOwner, Observer {
+        viewModel.created.observe(viewLifecycleOwner, Observer {
             it.let {
                 if(it){ Navigation.findNavController(view).navigate(R.id.action_pickupserviceFragment_to_submitrequestDialogFragment) } // Call Dialog when success
             }
-        })*/
+        })
 
         //Receive value after pick location
         myAddressPicked = arguments!!.getString("locAddress")
@@ -173,5 +172,4 @@ class PickupserviceFragment : Fragment() {
         builder.setNegativeButton(android.R.string.cancel, null)
         builder.show()
     }
-
 }

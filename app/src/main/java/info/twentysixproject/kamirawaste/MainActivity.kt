@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
     val user: String? = FirebaseAuth.getInstance().uid
 
     private lateinit var functions: FirebaseFunctions
-
     var firstTimeLogin: Boolean = false // Ensure data admin initiate for first time login
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,7 +91,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 // Get new Instance ID token
                 val token = task.result?.token
-
                 // Stored token
                 val checkDoc = db.collection("users").document(userUid!!)
 
@@ -104,7 +102,7 @@ class MainActivity : AppCompatActivity() {
                     db.collection("users").document(userUid)
                         .set(data, SetOptions.merge())
                         .addOnSuccessListener {
-                            adminConfiguration("test")
+                            //adminConfiguration("test")
                         }
                         .addOnFailureListener {
                         }
@@ -117,25 +115,5 @@ class MainActivity : AppCompatActivity() {
                 }
 
             })
-    }
-
-    //======First sign configuration=====//
-    private fun adminConfiguration(text: String): Task<String> {
-        // Create the arguments to the callable function.
-        val data = hashMapOf(
-            "text" to text,
-            "push" to true
-        )
-
-        return functions
-            .getHttpsCallable("createUser")
-            .call(data)
-            .continueWith { task ->
-                // This continuation runs on either success or failure, but if the task
-                // has failed then result will throw an Exception which will be
-                // propagated down.
-                val result = task.result?.data as String
-                result
-            }
     }
 }

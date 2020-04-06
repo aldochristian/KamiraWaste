@@ -111,7 +111,8 @@
         tools:layout="@layout/fragment_submitrequest_dialog" >
         <action
             android:id="@+id/action_submitrequestDialogFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/depotlistFragment"
