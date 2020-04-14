@@ -63,6 +63,9 @@
         <argument
             android:name="idOrder"
             app:argType="string" />
+        <action
+            android:id="@+id/action_orderdetailFragment_to_orderactionFragment"
+            app:destination="@id/orderactionFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -118,4 +121,8 @@
         android:id="@+id/depotlistFragment"
         android:name="info.twentysixproject.kamirawaste.depotlist.DepotlistFragment"
         android:label="DepotlistFragment" />
+    <fragment
+        android:id="@+id/orderactionFragment"
+        android:name="info.twentysixproject.kamirawaste.orderlist.orderaction.OrderactionFragment"
+        android:label="OrderactionFragment" />
 </navigation>

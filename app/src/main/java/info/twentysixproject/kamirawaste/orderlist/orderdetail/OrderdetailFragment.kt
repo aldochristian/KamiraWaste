@@ -6,9 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import info.twentysixproject.kamirawaste.R
 import info.twentysixproject.kamirawaste.databinding.FragmentDetailOrderBinding
 import info.twentysixproject.kamirawaste.databinding.FragmentOrderdetailBinding
@@ -52,6 +56,27 @@ class OrderdetailFragment : Fragment() {
             Log.i("Orderdetail", "Here "+it)
         })*/
 
+        //Observe action to be taken (change status)
+        viewModel.actionNumber.observe(viewLifecycleOwner, Observer {
+            when(it){
+                1 -> {
+                    viewModel.scheduledRequest()
+                    viewModel.completeTask()
+                }
+                2 -> {
+                    viewModel.cancelRequest()
+                    viewModel.completeTask()
+                }
+                3 -> {
+                    viewModel.completedRequest(0)
+                    viewModel.completeTask()
+                }
+                4 -> {
+                    showDialogComplete()
+                }
+            }
+        })
+
         binding.lifecycleOwner = this
         return binding.root
     }
@@ -61,6 +86,20 @@ class OrderdetailFragment : Fragment() {
 
         //Receive value of detail key ID
         orderId = arguments!!.getString("idOrder")
+
+        view.findViewById<Button>(R.id.frdetail_btn)?.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_orderdetailFragment_to_orderactionFragment, null)
+        )
+    }
+
+    fun showDialogComplete(){
+        viewModel.standbyEvent()
+        Log.d(this.toString(), "Complete task to scheduled")
+    }
+
+    var weight:Int = 0
+    fun askForWeight(){
+
     }
 
     companion object {

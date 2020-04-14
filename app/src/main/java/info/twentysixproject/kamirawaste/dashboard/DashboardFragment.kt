@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -32,7 +33,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class DashboardFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+
     private var param1: String? = null
     private var param2: String? = null
 
@@ -73,6 +74,11 @@ class DashboardFragment : Fragment() {
             }
         })
 
+        viewModel.endUserIdentification.observe(viewLifecycleOwner, Observer {
+            if(it){ assignAccess = ENDUSER }
+            else{ assignAccess = DEPOUSER }
+        })
+
         // : Step 1.7 call create channel
         createChannel(
             getString(R.string.egg_notification_channel_id),
@@ -89,9 +95,20 @@ class DashboardFragment : Fragment() {
         val navBar = activity?.findViewById<BottomNavigationView>(R.id.nav_view_bottom)
         navBar?.visibility = View.VISIBLE //Navigation hidden
 
+
+        /*
         view.findViewById<FloatingActionButton>(R.id.frdashboard_btnpick)?.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_dashboardtopickup, null)
+
         )
+         */
+        view.findViewById<FloatingActionButton>(R.id.frdashboard_btnpick).setOnClickListener {
+            when(assignAccess){
+                ENDUSER -> {
+                    findNavController().navigate(R.id.action_dashboardtopickup, null)
+                }
+                DEPOUSER -> Log.d("Dashboard", "You are depo user")
+            }
+        }
 
         view.findViewById<FloatingActionButton>(R.id.frdashboard_btndepo)?.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_dashboardFragment_to_depotlistFragment, null)
@@ -146,23 +163,11 @@ class DashboardFragment : Fragment() {
             }
     }
 
+    val ENDUSER:Int = 1
+    val DEPOUSER:Int = 2
+    var assignAccess: Int = 0
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DashboardFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DashboardFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+
     }
 }

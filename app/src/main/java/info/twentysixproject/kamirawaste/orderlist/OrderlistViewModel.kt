@@ -45,6 +45,7 @@ class OrderlistViewModel : ViewModel() {
                         Utils.convertTimeFromFirebase(document.get("dateCreated") as Timestamp),
                         "",
                         "",
+                        "",
                         ""))
                 }
                 orderList.value = orderFetch

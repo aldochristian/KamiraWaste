@@ -25,6 +25,7 @@ data class Orders(
     @SerializedName("senderContact") val senderContact: String?,
     @SerializedName("senderNote") val senderNote: String?,
     @SerializedName("dateCreated") val dateCreated: String?,
+    val status: String,
     val update: String?,
     val userDepo: String,
     val weight: String

@@ -21,6 +21,8 @@ class DashboardViewModel : ViewModel(){
     val balancePoint = MutableLiveData<Long>(0)
     val fullName = MutableLiveData<String>()
 
+    var endUserIdentification = MutableLiveData<Boolean>(true)
+
     private val _mypoints = MutableLiveData<String>()
     val myPoints: LiveData<String>
         get() = _mypoints
@@ -43,6 +45,7 @@ class DashboardViewModel : ViewModel(){
             .addOnSuccessListener {
                 if(it != null){
                     try {
+                        endUserIdentification.value = it.get("endUser") as Boolean
                         balanceCash.value = it.get("balanceCash") as Long
                         balancePoint.value = it.get("balancePoint") as Long
                         fullName.value = it.get("fullname").toString()
