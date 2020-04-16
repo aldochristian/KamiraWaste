@@ -59,16 +59,8 @@ class OrderdetailFragment : Fragment() {
         //Observe action to be taken (change status)
         viewModel.actionNumber.observe(viewLifecycleOwner, Observer {
             when(it){
-                1 -> {
-                    viewModel.scheduledRequest()
-                    viewModel.completeTask()
-                }
                 2 -> {
                     viewModel.cancelRequest()
-                    viewModel.completeTask()
-                }
-                3 -> {
-                    viewModel.completedRequest(0)
                     viewModel.completeTask()
                 }
                 4 -> {
@@ -95,11 +87,6 @@ class OrderdetailFragment : Fragment() {
     fun showDialogComplete(){
         viewModel.standbyEvent()
         Log.d(this.toString(), "Complete task to scheduled")
-    }
-
-    var weight:Int = 0
-    fun askForWeight(){
-
     }
 
     companion object {

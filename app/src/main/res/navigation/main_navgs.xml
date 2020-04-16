@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_depotlistFragment"
             app:destination="@id/depotlistFragment" />
+        <action
+            android:id="@+id/action_dashboardtoorderpool"
+            app:destination="@id/depoOrderpoolFragment" />
     </fragment>
     <fragment
         android:id="@+id/pickupserviceFragment"
@@ -125,4 +128,22 @@
         android:id="@+id/orderactionFragment"
         android:name="info.twentysixproject.kamirawaste.orderlist.orderaction.OrderactionFragment"
         android:label="OrderactionFragment" />
+    <fragment
+        android:id="@+id/depoOrderpoolFragment"
+        android:name="info.twentysixproject.kamirawaste.orderpool.DepoOrderpoolFragment"
+        android:label="DepoOrderpoolFragment"
+        tools:layout="@layout/fragment_depo_orderpool">
+        <action
+            android:id="@+id/action_depoOrderpoolFragment_to_depoOrderdetail"
+            app:destination="@id/depoOrderdetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/depoOrderdetail"
+        android:name="info.twentysixproject.kamirawaste.orderpool.DepoOrderdetailFragment"
+        android:label="fragment_depo_orderdetail"
+        tools:layout="@layout/fragment_depo_orderdetail">
+        <argument
+            android:name="idOrder"
+            app:argType="string" />
+    </fragment>
 </navigation>

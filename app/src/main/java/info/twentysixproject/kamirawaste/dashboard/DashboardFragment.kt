@@ -95,18 +95,14 @@ class DashboardFragment : Fragment() {
         val navBar = activity?.findViewById<BottomNavigationView>(R.id.nav_view_bottom)
         navBar?.visibility = View.VISIBLE //Navigation hidden
 
-
-        /*
-        view.findViewById<FloatingActionButton>(R.id.frdashboard_btnpick)?.setOnClickListener(
-
-        )
-         */
         view.findViewById<FloatingActionButton>(R.id.frdashboard_btnpick).setOnClickListener {
             when(assignAccess){
                 ENDUSER -> {
                     findNavController().navigate(R.id.action_dashboardtopickup, null)
                 }
-                DEPOUSER -> Log.d("Dashboard", "You are depo user")
+                DEPOUSER -> {
+                    findNavController().navigate(R.id.action_dashboardtoorderpool, null)
+                }
             }
         }
 

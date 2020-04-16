@@ -56,57 +56,11 @@ class OrderdetailViewModel : ViewModel() {
     val actionNumber: LiveData<Int>
         get() = _actionNumber
     val COMPLETE_TASK:Int = 4
-    val SET_SCHEDULED:Int = 1
     val SET_CANCEL:Int = 2
-    val SET_COMPLETE:Int = 3
-
-    var functions: FirebaseFunctions = FirebaseFunctions.getInstance()
 
     fun standbyEvent(){ _actionNumber.value = 0 }
 
-    fun onClickForScheduled(){ _actionNumber.value = SET_SCHEDULED }
-
     fun onClickForCancel(){ _actionNumber.value = SET_CANCEL}
-
-    fun onClickForCompleted(){ _actionNumber.value = SET_COMPLETE}
-
-    fun completeTask(){ _actionNumber.value = COMPLETE_TASK }
-
-    fun scheduledRequest(): Task<String> {
-
-        val data = hashMapOf(
-            "idorder" to this.idOrder
-        )
-
-        return functions
-            .getHttpsCallable("changeStatusToScheduled")
-            .call(data)
-            .continueWith { task ->
-                // This continuation runs on either success or failure, but if the task
-                // has failed then result will throw an Exception which will be
-                // propagated down.
-                val result = task.result?.data as String
-                result
-            }
-    }
-
-    fun completedRequest(weight: Int): Task<String> {
-        val data = hashMapOf(
-            "idOrder" to idOrder,
-            "weight" to weight
-        )
-
-        return functions
-            .getHttpsCallable("changeStatusToCompleted")
-            .call(data)
-            .continueWith { task ->
-                // This continuation runs on either success or failure, but if the task
-                // has failed then result will throw an Exception which will be
-                // propagated down.
-                val result = task.result?.data as String
-                result
-            }
-    }
 
     fun cancelRequest(){
         val orderRef = db.collection("orders").document(idOrder)
@@ -119,6 +73,10 @@ class OrderdetailViewModel : ViewModel() {
         }.addOnCompleteListener {
            _actionNumber.value = COMPLETE_TASK //Completed to cancel
         }
+    }
+
+    fun completeTask(){
+        _actionNumber.value = COMPLETE_TASK
     }
 
 }

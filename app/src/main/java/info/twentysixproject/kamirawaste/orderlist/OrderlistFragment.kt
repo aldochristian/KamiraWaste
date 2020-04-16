@@ -65,7 +65,6 @@ class OrderlistFragment : Fragment() {
         viewModel.fetchFirestore()
         viewModel.getOrderList().observe(viewLifecycleOwner, Observer {
             it.let {
-                Log.i("OrderlistFr", it.toString())
                 adapter.submitList(it)
             }
         })
